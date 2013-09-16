@@ -1,0 +1,22 @@
+<?php
+$divider = '<span style="display: inline-block" class="ui-icon ui-icon-arrow-1-e"></span>';
+?>
+
+<!-- <div class="span1"> -->
+<!--     <ul class="breadcrumb"> -->
+Du bist hier:<a href="<?php echo $this->url('home'); ?>"><span style="display: inline-block"
+class="ui-icon ui-icon-home"></span>Startseite</a><?php
+foreach ($this->path as $name => $url):
+    if (is_null($url)) :
+        if ($this->path != '') :
+            echo $divider . $name;
+        endif;
+            else :
+            if ($this->path != '') :
+                echo $divider . '<a href="' . $url . '" title="zurück zu ' . $name . '">' . $name . '</a>';
+            endif;
+    endif;
+endforeach;
+?>
+<!--     </ul> -->
+<!-- </div> -->

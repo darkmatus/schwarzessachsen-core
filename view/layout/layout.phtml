@@ -1,0 +1,125 @@
+<?php $children = $this->viewModel()
+    ->getCurrent()
+    ->getChildren();
+
+$ourView  = $children[0];?>
+<?php echo $this->doctype(); ?>
+<?php $ourViewm = $ourView->message; ?>
+<?php $ourViewe = $ourView->error; ?>
+<?php
+$a = $this->DisplayName();?>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+            <base href="<?php echo $this->basePath() ?>/" target="_self" />
+            <?php echo $this->headTitle(' - Schwarzes-Sachsen.de  ')?>
+
+<!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/jquery-ui-1.10.0.custom.css')
+                        ->prependStylesheet($this->basePath() . '/css/customstyle.css') ?>
+
+<!-- Scripts -->
+        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                                      ->prependFile($this->basePath() . '/js/bootstrap.js')
+                                      ->prependFile($this->basePath() . '/js/jquery-1.9.0.js')
+                                      ->appendFile($this->basePath() . '/js/jquery-ui-1.10.0.custom.js')
+                                      ->appendFile($this->basePath() . '/js/ui-script.js')
+                                      ->appendFile($this->basePath() . '/js/ckeditor/ckeditor.js')
+                                      ->appendFile($this->basePath() . '/js/ckeditor/styles.js')
+                                      ->prependFile($this->basePath() . '/js/customscripts.js'); ?>
+
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <form class="navbar-search pull-right">
+                        <input type="text" class="search-query" placeholder="Search">
+                    </form>
+                    <li class="dropdown">
+                        <a href="/" class="dropdown-toggle" data-toggle="dropdown">
+                        Hauptmenü<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('home') ?>">Home</a></li>
+                            <?php if(empty($a)) : ?>
+                            <li><a href="#login" data-toggle="modal"></span>Login</a></li>
+                            <li><a href="<?php echo $this->url('register') ?>">Registrieren</a></li>
+                            <?php  else : ?>
+                            <li><a href="<?php echo $this->url('profile' ) ?>">Profil bearbeiten</a></li>
+                            <li><a href="<?php echo $this->url('profile', array('action' => 'show')) ?>">Profil anzeigen</a></li>
+                            <li><a href="<?php echo $this->url('logout') ?>">Logout</a></li>
+                            <?php  endif; ?>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/" class="dropdown-toggle" data-toggle="dropdown">
+                        Forum<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <?php if(empty($a)) : ?>
+                            <li><a href="<?php echo $this->url('forum', array('action' => 'view')) ?>">Forum anzeigen</a></li>
+                            <?php  else : ?>
+                            <li><a href="<?php echo $this->url('forum', array('action' => 'view')) ?>">Forum anzeigen</a></li>
+                            <li><a href="<?php echo $this->url('forum', array('action' => 'add')) ?>">neuen Beitrag verfasen</a></li>
+                            <?php  endif; ?>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container">
+<?php if (!empty($ourViewe) && is_array($ourViewe)) : ?>
+<?php foreach ($ourViewe as $fMessage) : ?>
+<div class="alert alert-error">
+  <a class="close" data-dismiss="alert" href="#">×</a>
+  <strong>Fehler:</strong> <?php echo $fMessage; ?>
+</div>
+<?php endforeach; ?>
+<?php elseif (!empty($ourViewe) && ($ourViewe)) :?>
+<div class="alert alert-error">
+  <a class="close" data-dismiss="alert" href="#">×</a>
+  <strong>Fehler:</strong> <?php echo $ourViewe; ?>
+</div>
+<?php elseif (!empty($ourView) && count($ourView)): ?>
+<?php foreach ($ourViewm as $Message) : ?>
+<div class="alert alert-success">
+  <a class="close" data-dismiss="alert" href="#">×</a>
+  <?php echo $Message; ?>
+</div>
+<?php endforeach;?>
+<?php endif; ?>
+<?php echo $this->content; ?>
+    <hr>
+    <footer>
+        <p>&copy; 2013 - <?php echo date('Y') ?>  S-P-IT | Alle Rechte vorbehalten</p>
+    </footer>
+</div> <!-- /container -->
+<?php /* Modal Add Entry Form */?>
+
+<div id="login" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <h3 id="myModalLabel">Einloggen</h3>
+    </div>
+    <div class="modal-body">
+            <?php echo $this->UserLoginWidget(); ?>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Abbrechen</button>
+    </div>
+</div>
+<?php echo $this->inlineScript()->prependFile($this->basePath() . '/js/ui-script.js'); ?>
+</body>
+</html>
