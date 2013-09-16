@@ -1,0 +1,24 @@
+{
+    "name": "Schwarzes-Sachsen.de - Core",
+    "description": "Core module for own project(s)",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "framework",
+        "zf2"
+    ],
+    "homepage": "http://www.s-p-it.de",
+    "minimum-stability": "alpha",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.*",
+        "doctrine/doctrine-orm-module": "@stable",
+        "doctrine/doctrine-module": "@stable",
+    },
+
+        "autoload": {
+        "psr-0": {
+            "SchwarzesSachsenCore": "src/",
+        }
+    }
+}
+
