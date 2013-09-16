@@ -12,12 +12,12 @@
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.*",
         "doctrine/doctrine-orm-module": "@stable",
-        "doctrine/doctrine-module": "@stable",
+        "doctrine/doctrine-module": "@stable"
     },
 
         "autoload": {
         "psr-0": {
-            "SchwarzesSachsenCore": "src/",
+            "SchwarzesSachsenCore": "src/"
         }
     }
 }
